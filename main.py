@@ -1,4 +1,5 @@
 from pythainlp import sent_tokenize, word_tokenize
+import sys
 
 texts = [
     ("พระราชบัญญัติธรรมนูญการปกครองแผ่นดินสยามชั่วคราว พุทธศักราช ๒๔๗๕ "
@@ -11,14 +12,39 @@ texts = [
 เมื่อเวลา18.40 น. วันที่ 11 ต.ค.2567 ผู้สื่อข่าวรายงาน ในพื้นที่ ต.อัยเยอร์เวง อ.เบตง จ.ยะลา เกิดฝนตกหนัก ทำให้ดินสไลด์ทับเส้นทาง น้ำคลองกัดเซาะถนนภายในหมู่บ้านขาด น้ำหลากท่วมบ้านเรือนประชาชนหลายหลัง นอกจากนั้นยังเกิดดินสไลด์ปิดทับเส้นทางสาย 410 เบตง-ยะลา ช่วงกม.39."""
 ]
 
-sentence_engines = [ "whitespace+newline", "whitespace", "newline", "thaisum", "wtp", "wtp-tiny" ]
+sentence_engines = [ "thaisum", "whitespace" ]
 # default engine ("") not available as it uses pycrfsuite, which is an extra dependency.  Skipping
 # "tltk" tltk is extra dependency, has build deps so might cause trouble -- on mac, ERROR: Command errored out with exit status 1:
+# "newline" not found - fine, I'll split that anyway
+# "whitespace+newline" - Lute will split by paragraphs (newlines), so don't use that for sentence tokenizing.
+# "wtp" is extra install - from wtpsplit import WtP
 
 word_engines = [ "newmm", "newmm-safe", "longest" ]
 
 # "attacut" word engine not available due to "ERROR: Could not find a version that satisfies the requirement torch>=1.2.0 (from attacut) (from versions: none)"
 # "tltk" tltk is extra dependency, has build deps so might cause trouble -- on mac, ERROR: Command errored out with exit status 1:
+
+tnum = 0
+for text in texts:
+    tnum += 1
+    print("=" * 50)
+    print(f"Sample text #{tnum}:")
+    print("-" * 50)
+    print(text)
+    print("-" * 50)
+    print()
+
+    for se in sentence_engines:
+        print()
+        print("Sentence engine = " + se)
+        sentences = sent_tokenize(text, engine=se)
+        senum = 0
+        for s in sentences:
+            senum += 1
+            print(f"{senum}: {s}")
+
+
+sys.exit(0)
 
 for text in texts:
     print("=" * 50)
