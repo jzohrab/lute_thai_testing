@@ -33,10 +33,12 @@ word_engines = [ "newmm", "newmm-safe", "longest" ]
 # "attacut" word engine not available due to "ERROR: Could not find a version that satisfies the requirement torch>=1.2.0 (from attacut) (from versions: none)"
 # "tltk" tltk is extra dependency, has build deps so might cause trouble -- on mac, ERROR: Command errored out with exit status 1:
 
-# Finding sentences.
+print("\n" * 3)
+print("# Finding sentences")
 tnum = 0
 for text in texts:
     tnum += 1
+    print()
     print("=" * 50)
     print(f"Sample text #{tnum}:")
     print("-" * 50)
@@ -51,16 +53,16 @@ for text in texts:
         senum = 0
         for s in sentences:
             senum += 1
-            print()
             print(f"{senum}: {s}")
 
-# Tokenizing sentences
+print("\n" * 3)
+print("# Tokenizing sentences")
 for text in texts:
     for se in sentence_engines:
         sentences = sent_tokenize(text, engine=se)
         for s in sentences:
             print()
-            print(f"Tokens for sentence \"{s}\":")
+            print(f"\"{s}\":")
             results = {}
             for we in word_engines:
                 tokens = word_tokenize(s, engine=we)
@@ -71,26 +73,6 @@ for text in texts:
                     results[jt] = [we]
             for jt, engines in results.items():
                 if len(engines) == len(word_engines):
-                    print(jt)
+                    print(f"  {jt}")
                 else:
-                    print(f"{jt} (engines: {', '.join(engines)})")
-
-
-sys.exit(0)
-
-for text in texts:
-    print("=" * 50)
-    print(text)
-    print()
-
-    for se in sentence_engines:
-        print("Sentence engine = " + se)
-        sentences = sent_tokenize(text, engine=se)
-        senum = 0
-        for s in sentences:
-            senum += 1
-            print(f"{senum}: {s}")
-            for we in word_engines:
-                print("Word engine = " + we)
-                tokens = word_tokenize(s, engine=we)
-                print(tokens)
+                    print(f"  {jt} ({', '.join(engines)})")
