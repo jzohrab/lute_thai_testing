@@ -1,16 +1,8 @@
-Testing out `pythainlp` for Lute, see what are the best sentence and word tokenizers.
+Testing out `pythainlp` ([ref](https://pythainlp.org/tutorials/notebooks/pythainlp_get_started.html)) for [Lute](https://luteorg.github.io/lute-manual/intro.html), see what are the best sentence and word tokenizers.
 
-ref https://pythainlp.org/tutorials/notebooks/pythainlp_get_started.html
+`pythainlp` has different "engines" to split sentences (`[ "thaisum", "whitespace" ]`) and words (`[ "newmm", "newmm-safe", "longest" ]`), so `main.py` shows examples for each of these with 3 text samples.
 
-There are different "engines" to split sentences (`[ "thaisum", "whitespace" ]`) and words (`[ "newmm", "newmm-safe", "longest" ]`), so `main.py` shows examples for each of these with 3 text samples.
-
-# usage
-
-create a venv, install all reqs, then run main.py: `python main.py`
-
-# results
-
-see the ./sample_output.txt for examples
+Results are at [sample_output.txt](./sample_output.txt) -- see below for notes.
 
 # interpreting the results
 
@@ -69,3 +61,7 @@ As shown below, all engines returned the same tokens for the first two sentences
 ```
 
 newmm and newmm-safe almost always returned the same results.
+
+# dev usage
+
+create a venv, install all reqs, then run main.py: `python main.py`
